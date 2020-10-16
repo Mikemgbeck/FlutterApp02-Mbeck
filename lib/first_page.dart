@@ -18,12 +18,8 @@ class _MyFirstPageState extends State<MyFirstPage> {
         print('onPressed1 returning address of anon func but NOT running it');
         return () {
           print('Anon func now running as button 1 pressed');
-          //Because there are no () this anonymous function
-          //is NOT called but the address of it is returned to who ever
-          //called onPressed1.
-          //This means that the button will now appear and only
-          //when the button is pressed will this anonymous function
-          //run.
+          _counter++;
+          print(_counter);
         };
       } else {
         print('onPressed1 returning NULL');
@@ -37,6 +33,8 @@ class _MyFirstPageState extends State<MyFirstPage> {
             'onPressed2 returning a null as the result of running the anonymous function');
         return () {
           print('Anon func now running as button 2 pressed');
+          _counter = 0;
+          print(_counter);
         };
       } else {
         print('onPressed2 returning NULL');
@@ -69,7 +67,11 @@ class _MyFirstPageState extends State<MyFirstPage> {
                       //_enabled is false.
                       setState(() {
                         if (_enabled) {
-                          _msg1 = 'Click Me';
+                          if (_counter == 0) {
+                            _msg1 = 'Click Me';
+                          } else {
+                            _msg1 = 'Clicked $_counter time(s)';
+                          }
                           _msg2 = 'Reset';
                           print('_enabled is true');
                         } else {
@@ -105,13 +107,6 @@ class _MyFirstPageState extends State<MyFirstPage> {
                     //null and the button will disappear and be disabled.
                     onPressed: onPressed1(),
 
-                    //If we call onPressed2 instead of onPressed1 the
-                    //anonymous function will run but the button
-                    //will NOT appear, THIS DOES NOT WORK.
-                    //onPressed: onPressed2(),
-
-                    //The text of the button works separately from the button
-                    //itself so we must update it when the switch is changed.
                     child: Text(_msg1),
                   ),
                 ),
@@ -135,14 +130,6 @@ class _MyFirstPageState extends State<MyFirstPage> {
                     //If _enabled is false onPressed1 will return
                     //null and the button will disappear and be disabled.
                     onPressed: onPressed2(),
-
-                    //If we call onPressed2 instead of onPressed1 the
-                    //anonymous function will run but the button
-                    //will NOT appear, THIS DOES NOT WORK.
-                    //onPressed: onPressed2(),
-
-                    //The text of the button works separately from the button
-                    //itself so we must update it when the switch is changed.
                     child: Text(_msg2),
                   ),
                 ),
