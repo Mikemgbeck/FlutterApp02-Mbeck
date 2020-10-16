@@ -19,7 +19,9 @@ class _MyFirstPageState extends State<MyFirstPage> {
         return () {
           print('Anon func now running as button 1 pressed');
           _counter++;
-          print(_counter);
+          setState(() {
+            _msg1 = 'Clicked $_counter';
+          });
         };
       } else {
         print('onPressed1 returning NULL');
@@ -29,12 +31,13 @@ class _MyFirstPageState extends State<MyFirstPage> {
 
     Object onPressed2() {
       if (_enabled) {
-        print(
-            'onPressed2 returning a null as the result of running the anonymous function');
+        print('onPressed2 returning address of anon func but NOT running it');
         return () {
           print('Anon func now running as button 2 pressed');
           _counter = 0;
-          print(_counter);
+          setState(() {
+            _msg1 = 'Click Me';
+          });
         };
       } else {
         print('onPressed2 returning NULL');
@@ -70,7 +73,7 @@ class _MyFirstPageState extends State<MyFirstPage> {
                           if (_counter == 0) {
                             _msg1 = 'Click Me';
                           } else {
-                            _msg1 = 'Clicked $_counter time(s)';
+                            _msg1 = 'Clicked $_counter';
                           }
                           _msg2 = 'Reset';
                           print('_enabled is true');
